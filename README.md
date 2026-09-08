@@ -50,9 +50,3 @@ GET /api/weather/history?country=Mozambique
 GET /api/weather/history?startDate=2026-07-01&endDate=2026-07-14
 GET /api/weather/history/{id}
 DELETE /api/weather/history/{id}
-
-
-
-
-
-```
