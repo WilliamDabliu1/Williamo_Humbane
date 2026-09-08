@@ -8,6 +8,8 @@ import java.util.List;
 public class GeocodingResponse {
 
     private List<GeocodingResult> results;
+    private Boolean error;
+    private String reason;
 
     public List<GeocodingResult> getResults() {
         return results;
@@ -15,5 +17,21 @@ public class GeocodingResponse {
 
     public void setResults(List<GeocodingResult> results) {
         this.results = results;
+    }
+
+    public Boolean getError() {
+        return error;
+    }
+
+    public void setError(Boolean error) {
+        this.error = error;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

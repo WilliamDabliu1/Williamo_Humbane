@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.williamo.dto.ErrorResponse;
+import com.williamo.exception.OpenMeteoIntegrationException;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
@@ -24,6 +25,16 @@ public class ApiExceptionHandler {
         String message = ex.getReason() != null ? ex.getReason() : "Request failed";
         log.warn("API error status={} message={}", ex.getStatusCode().value(), message);
         return ResponseEntity.status(ex.getStatusCode()).body(new ErrorResponse(ex.getStatusCode().value(), message));
+    }
+
+    @ExceptionHandler(OpenMeteoIntegrationException.class)
+    public ResponseEntity<ErrorResponse> handleOpenMeteo(OpenMeteoIntegrationException ex) {
+        log.warn("Open-Meteo integration error source={} remoteStatus={} message={}",
+                ex.getSource(), ex.getRemoteStatus(), ex.getMessage());
+        ErrorResponse body = new ErrorResponse(ex.getStatus().value(), ex.getMessage());
+        body.setSource(ex.getSource());
+        body.setRemoteStatus(ex.getRemoteStatus());
+        return ResponseEntity.status(ex.getStatus()).body(body);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
