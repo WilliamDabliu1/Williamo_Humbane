@@ -121,7 +121,7 @@ public class WeatherService {
                 cityFilter, countryFilter, startDate, endDate, page, size);
 
         Page<WeatherQuery> records = weatherQueryRepository.searchHistory(
-                cityFilter, countryFilter, start, end, PageRequest.of(page, size));
+                cityFilter, countryFilter, start, end, PageRequest.of(0, 5));
 
         List<WeatherQueryResponse> content = new ArrayList<WeatherQueryResponse>();
         for (WeatherQuery record : records.getContent()) {
